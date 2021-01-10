@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Datos</title>
+</head>
+<body>
+    <ol>
+    {% for dato in datos %}
+        <ul>
+            <li>Nombre: {{ dato.address.value.streetAddress }} <br>
+            Estado: {{ dato.status.value.0 }}</li><br>
+        </ul>
+    {% endfor %}
+    </ol>
+</body>

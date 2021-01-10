@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>
+        Equipos
+    </title>
+</head>
+<body>
+<ol>
+    {% for equipo in equipos %}
+        <li>
+            <ol>
+                <li>Nombre: {{ equipo.nombre }}</li>
+
+                <li>Puntos: {{ equipo.puntos }}</li>
+
+                <li>Jugadores:
+                    {% for jugador in equipo.jugadores %}
+                        <ol>
+                            <li>Nombre: {{ jugador.nombre }}</li>
+                            <li><img src="{{ jugador.foto }}"></li>
+                        </ol>
+                    {% endfor %}
+                </li>
+
+            </ol>
+        </li>
+    {% endfor %}
+</ol>
+<script>
+    let index = 2
+    function handle() {
+        const div = document.createElement('div');
+
+        div.innerHTML = `
+        <label>Nombre jugador ` + index + `</label><input type="text" name= ` + "nombre_jugador_" + index + `><br>
+        <label>Foto jugador ` + index + `</label><input type="file" name= ` + "foto_" + index + `><br>
+      `;
+        document.getElementById("jugadores").appendChild(div);
+        document.getElementById('num_jugadores').value = index;
+        index++;
+    }
+</script>
+<form action="/cliente/anadir_equipo/" method="post" enctype="multipart/form-data"> {% csrf_token %}
+    <label>Nombre</label><input type="text" name="nombre"><br>
+    <label>Puntos</label><input type="number" name="puntos"><br>
+    <div id="jugadores">
+        <label>Nombre jugador 1</label><input type="text" name="nombre_jugador_1"><br>
+        <label>Foto jugador 1</label><input type="file" name="foto_1"><br>
+    </div>
+    <input type="number" id="num_jugadores" name="num_jugadores" hidden value="1"><br>
+    <input type="submit" value="Añadir">
+</form>
+<button onclick="handle()">Añadir otro jugador</button>
+</body>
+</html>
